@@ -83,15 +83,22 @@ public class GradNode{
         this.leaf = false;
     }
     public void backward(){
-        if (this.leaf){
-            this.grad = 1;
-        }
-        if (childGrads==null){
-            return;
-        }
+        this.grad = 1;
         for (int i = 0; i<childGrads.size(); i++){
             children.get(i).setGrad(children.get(i).getGrad()+childGrads.get(i)*this.grad);
-            children.get(i).backward();
+            children.get(i).backwardN();
+        }
+    }
+    private void backwardN(){
+        for (int i = 0; i<childGrads.size(); i++){
+            children.get(i).setGrad(children.get(i).getGrad()+childGrads.get(i)*this.grad);
+            children.get(i).backwardN();
+        }
+    }
+    public void zeroGrad(){
+        this.grad = 0;
+        for (int i =0; i<children.size(); i++){
+            children.get(i).zeroGrad();
         }
     }
     @Override
@@ -106,9 +113,5 @@ public class GradNode{
             }
         }
         return res;
-    }
-    public static void main(String[] args) {
-        
-    
     }
 }
