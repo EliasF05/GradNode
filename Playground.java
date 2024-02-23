@@ -1,13 +1,14 @@
 public class Playground {
     public static void main(String[] args) {
-        GradNodeMat trainX = new GradNodeMat(new double[][]{
+        
+        GradMat trainX = new GradMat(new double[][]{
                                             {0,1},
                                             {0.6,0},
                                             {0.9,0},
                                             {0, 1},
                                             {0, 1}});
-        GradNodeVec trainY = new GradNodeVec(new double[]{0,10,10,0,0});
-        GradNodeVec transFo = new GradNodeVec(2);
+        GradVec trainY = new GradVec(new double[]{0,10,10,0,0});
+        GradVec transFo = new GradVec(2);
 
         // Forward Pass
         GradNode loss = new GradNode(0);

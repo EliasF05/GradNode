@@ -1,23 +1,23 @@
 import java.util.Arrays;
 
-public class GradNodeMat {
+public class GradMat {
 
-    private GradNodeVec[] values;
-    public GradNodeMat(double[][] Data){
-        values = new GradNodeVec[Data.length];
+    private GradVec[] values;
+    public GradMat(double[][] Data){
+        values = new GradVec[Data.length];
         for (int i =0 ; i<Data.length; i++){
-            values[i] = new GradNodeVec(Data[i]);
+            values[i] = new GradVec(Data[i]);
         }
     }
-    public GradNodeMat(int[] shape){
-        values = new GradNodeVec[shape[0]];
+    public GradMat(int[] shape){
+        values = new GradVec[shape[0]];
         for (int i = 0; i<shape[0]; i++){
-            values[i] = new GradNodeVec(shape[1]);
+            values[i] = new GradVec(shape[1]);
         }
     }
-    public GradNodeVec sum(int axis){
+    public GradVec sum(int axis){
         if (axis==0){
-            GradNodeVec res = new GradNodeVec(new double[this.values[0].getValues().length]);
+            GradVec res = new GradVec(new double[this.values[0].getValues().length]);
             for (int i = 0; i<this.values[0].getValues().length; i++){
                 GradNode colISum = new GradNode(0);
                 for (int j = 0; j<this.values.length; j++){
@@ -28,7 +28,7 @@ public class GradNodeMat {
             return res;
         }
         else{
-            GradNodeVec res = new GradNodeVec(new double[this.values.length]);
+            GradVec res = new GradVec(new double[this.values.length]);
             for (int i =0 ; i<this.values.length; i++){
                 GradNode rowISum = new GradNode(0);
                 for (int j = 0; j<this.values[0].getValues().length; j++){
@@ -40,11 +40,11 @@ public class GradNodeMat {
         }
     }
 
-    public GradNodeMat mul(GradNodeMat other){
+    public GradMat mul(GradMat other){
         if (this.shape()[1]!=other.shape()[0]){
             throw new IllegalArgumentException("matrix multiplication cannot be performed with shapes: "+Arrays.toString(this.shape())+" and "+Arrays.toString(other.shape()));
         }
-        GradNodeMat res = new GradNodeMat(new double[this.shape()[0]][other.shape()[1]]);
+        GradMat res = new GradMat(new double[this.shape()[0]][other.shape()[1]]);
         for (int i = 0; i<this.shape()[0]; i++){
             for (int j = 0; j<other.shape()[1]; j++){
                 res.getValues(i).setValue(j, this.values[i].dot(other.col(j)));
@@ -53,14 +53,14 @@ public class GradNodeMat {
         return res;
 
     }
-    public GradNodeVec getValues(int index){
+    public GradVec getValues(int index){
         return this.values[index];
     }
-    public GradNodeVec[] getValVecs(){
+    public GradVec[] getValVecs(){
         return this.values;
     }
-    public GradNodeVec col(int colIndex){
-        GradNodeVec res = new GradNodeVec(new double[this.values.length]);
+    public GradVec col(int colIndex){
+        GradVec res = new GradVec(new double[this.values.length]);
         for (int i =0 ; i<res.getValues().length; i++){
             res.setValue(i, this.values[i].getValues()[colIndex]);
         }
@@ -72,19 +72,19 @@ public class GradNodeMat {
     }
     public String toString(){
         String res = "GradeNodeMat{";
-        for (GradNodeVec row : values){
+        for (GradVec row : values){
             res = res+row+"\n";
         }
         return res+"}\n";
     }
     public static void main(String[] args) {
-        GradNodeMat mat = new GradNodeMat(new double[][]{{1,2,3},
+        GradMat mat = new GradMat(new double[][]{{1,2,3},
                                                          {4,5,6}});
-        GradNodeMat otherMat = new GradNodeMat(new double[][]{{1,2,3,4},
+        GradMat otherMat = new GradMat(new double[][]{{1,2,3,4},
                                                               {5,6,7,8},
                                                               {9,10,11,12}});
-        GradNodeMat res = mat.mul(otherMat);
-        GradNodeVec resRow = res.sum(1);
+        GradMat res = mat.mul(otherMat);
+        GradVec resRow = res.sum(1);
         GradNode resVal = resRow.sum();
         GradNode res2 = new GradNode(100);
         GradNode res3 = resVal.add(res2);
