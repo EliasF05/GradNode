@@ -52,7 +52,7 @@ public class GradVec {
     }
     @Override
     public String toString(){
-        String res = "GradeNodeVec{";
+        String res = "GradVec{";
         for (GradNode x: values){
             res = res+x+",";
         }

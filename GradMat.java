@@ -71,7 +71,7 @@ public class GradMat {
         return new int[]{this.values.length, this.values[0].getValues().length};
     }
     public String toString(){
-        String res = "GradeNodeMat{";
+        String res = "GradMat{";
         for (GradVec row : values){
             res = res+row+"\n";
         }
