@@ -96,7 +96,7 @@ public class GradNode{
     }
     @Override
     public String toString(){
-        return "GradeNode{Data="+this.data+"; Grad="+this.grad+"}";
+        return "GradNode{Data="+this.data+"; Grad="+this.grad+"}";
     }
     public String graphToString(){
         String res =  this.toString();

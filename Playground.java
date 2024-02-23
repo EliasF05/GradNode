@@ -30,7 +30,5 @@ public class Playground {
         }
         System.out.println(transFo);
         System.out.println(loss);
-        
-
     }
 }
