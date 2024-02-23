@@ -69,6 +69,10 @@ public class GradNode{
     public ArrayList<GradNode> getChildren(){
         return this.children;
     }
+
+    public ArrayList<Double> getChildGrads(){
+        return this.childGrads;
+    }
     
     public void setGrad(double newGrad){
         this.grad = newGrad;
