@@ -6,10 +6,8 @@ public class GradNode{
     private ArrayList<GradNode> children;
     private ArrayList<Double> childGrads;
     private double grad;
-    private boolean leaf;
 
     public GradNode(double data){
-        this.leaf =  true;
         this.data = data;
         this.children = new ArrayList<GradNode>();
         this.childGrads = new ArrayList<Double>();
@@ -27,8 +25,6 @@ public class GradNode{
         res.addChild(other);
         res.childGrads.add(1+this.grad);
         res.childGrads.add(1+other.getGrad());
-        this.notLeaf();
-        other.notLeaf();
         return res;
     }
     public GradNode sub(GradNode other){
@@ -37,8 +33,6 @@ public class GradNode{
         res.addChild(other);
         res.childGrads.add(1+this.grad);
         res.childGrads.add(other.getGrad()-1);
-        this.notLeaf();
-        other.notLeaf();
         return res;
     }
     public GradNode mul(GradNode other){
@@ -47,8 +41,6 @@ public class GradNode{
         res.addChild(other);
         res.childGrads.add(other.getData()+this.grad);
         res.childGrads.add(this.data+other.getGrad());
-        this.notLeaf();
-        other.notLeaf();
         return res;
     }
     public GradNode div(GradNode other){
@@ -57,8 +49,6 @@ public class GradNode{
         res.addChild(other);
         res.childGrads.add(1/other.getData()+this.grad);
         res.childGrads.add(-(this.data/Math.pow(other.getData(),2))+other.getGrad());
-        this.notLeaf();
-        other.notLeaf();
         return res;
     }
     public double getGrad(){
@@ -78,9 +68,6 @@ public class GradNode{
     }
     public void addChild(GradNode child){
         this.children.add(child);
-    }
-    public void notLeaf(){
-        this.leaf = false;
     }
     public void backward(){
         this.grad = 1;
