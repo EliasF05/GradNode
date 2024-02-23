@@ -1,4 +1,4 @@
-# TrackGrad: Basic AutoGrad Engine in Java (Work in Progress)
+# GradNode: Basic AutoGrad Engine in Java (Work in Progress)
 
 ## Description
 Use GradNode, GradNodeVec and GradNodeMat objects to perform arithmetic operations while Gradients are being kept track of.
