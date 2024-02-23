@@ -8,12 +8,14 @@ public class GradVec {
             values[i] = new GradNode(data[i]);
         }
     }
+    
     public GradVec(int size){
         this.values = new GradNode[size];
         for (int i = 0; i<size; i++){
             values[i] = new GradNode();
         }
     }
+    
     public GradNode sum(){
         GradNode res = new GradNode(0);
         for (GradNode value:values){
@@ -21,6 +23,7 @@ public class GradVec {
         }
         return res;
     }
+    
     public GradNode dot(GradVec other){
         sameLength(this, other);
         GradNode res = new GradNode(0);
@@ -30,6 +33,7 @@ public class GradVec {
         return res;
 
     }
+    
     public GradVec add(GradVec other){
         sameLength(this, other);
         GradVec res = new GradVec(new double[this.values.length]);
@@ -39,17 +43,21 @@ public class GradVec {
         return res;
 
     }
+    
     public static void sameLength(GradVec a, GradVec b){
         if (a.getValues().length!=b.getValues().length){
             throw new IllegalArgumentException("dot product cannot be performed for vectors of sizes: "+a.getValues().length+" and "+b.getValues().length);
         }
     }
+    
     public void setValue(int index, GradNode val){
         this.values[index] = val;
     }
+    
     public GradNode[] getValues(){
         return this.values;
     }
+    
     @Override
     public String toString(){
         String res = "GradVec{";

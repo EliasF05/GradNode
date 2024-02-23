@@ -3,18 +3,21 @@ import java.util.Arrays;
 public class GradMat {
 
     private GradVec[] values;
+    
     public GradMat(double[][] Data){
         values = new GradVec[Data.length];
         for (int i =0 ; i<Data.length; i++){
             values[i] = new GradVec(Data[i]);
         }
     }
+    
     public GradMat(int[] shape){
         values = new GradVec[shape[0]];
         for (int i = 0; i<shape[0]; i++){
             values[i] = new GradVec(shape[1]);
         }
     }
+    
     public GradVec sum(int axis){
         if (axis==0){
             GradVec res = new GradVec(new double[this.values[0].getValues().length]);
@@ -53,12 +56,15 @@ public class GradMat {
         return res;
 
     }
+    
     public GradVec getValues(int index){
         return this.values[index];
     }
+    
     public GradVec[] getValVecs(){
         return this.values;
     }
+    
     public GradVec col(int colIndex){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i =0 ; i<res.getValues().length; i++){
@@ -70,6 +76,7 @@ public class GradMat {
     public int[] shape(){
         return new int[]{this.values.length, this.values[0].getValues().length};
     }
+    
     public String toString(){
         String res = "GradMat{";
         for (GradVec row : values){
