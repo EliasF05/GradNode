@@ -5,6 +5,6 @@ Use GradNode, GradVec and GradMat objects to perform arithmetic operations while
 Machine Learning Models and other Procedures based on Gradient Calculation.
 
 ## How to Use
-Download GradNode.java, GradVec.java and GradMat.java into the path of your project/choice.
+Download the Folder into the path of your project/choice.
 Have Fun!
 
