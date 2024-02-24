@@ -47,9 +47,9 @@ public class Playground {
 
         // Backpropagation
         loss.backward();
-        System.out.println(weights);
-        System.out.println(biases);
-        System.out.println(loss);
+        System.out.println("Weights Pre Training: "+weights);
+        System.out.println("Biases Pre Training: "+biases);
+        System.out.println("Loss Pre Training"+loss);
 
         // Parameter Update
         double lr = 0.01;
@@ -74,9 +74,9 @@ public class Playground {
 
         loss.zeroGrad(); // Reset Gradients
         loss.backward();
-        System.out.println(weights);
-        System.out.println(biases);
-        System.out.println(loss);
+        System.out.println("Weights Post Training: "+weights);
+        System.out.println("Biases Post Training: "+biases);
+        System.out.println("Loss Post Training: "+loss);
 
 
     }
