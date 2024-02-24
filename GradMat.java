@@ -22,22 +22,14 @@ public class GradMat {
         if (axis==0){
             GradVec res = new GradVec(new double[shape()[1]]);
             for (int i = 0; i<this.values[0].getValues().length; i++){
-                GradNode colISum = new GradNode(0);
-                for (int j = 0; j<this.values.length; j++){
-                    colISum = colISum.add(this.values[i].getValues()[j]);
-                }
-                res.setValue(i, colISum);
+                res.setValue(i, col(i).sum());
             }
             return res;
         }
         else{
             GradVec res = new GradVec(new double[this.values.length]);
             for (int i =0 ; i<this.values.length; i++){
-                GradNode rowISum = new GradNode(0);
-                for (int j = 0; j<this.values[0].getValues().length; j++){
-                    rowISum = rowISum.add(this.values[i].getValues()[j]);
-                }
-                res.setValue(i, rowISum);
+                res.setValue(i, row(i).sum());
             }
             return res;
         }
@@ -62,8 +54,8 @@ public class GradMat {
     }
     
     public GradMat add(GradMat other){
-        if (shape()!=other.shape()){
-            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations.");
+        if (!(Arrays.equals(shape(), other.shape()))){
+            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible.");
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
@@ -73,8 +65,8 @@ public class GradMat {
     }
     
     public GradMat sub(GradMat other){
-        if (shape()!=other.shape()){
-            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations.");
+        if (!(Arrays.equals(shape(), other.shape()))){
+            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible.");
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
@@ -84,8 +76,8 @@ public class GradMat {
     }
     
     public GradMat mul(GradMat other){
-        if (shape()!=other.shape()){
-            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations. If you would like Matrix Multiplication, call GradMat.matmul(other)");
+        if (!(Arrays.equals(shape(), other.shape()))){
+            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible. If you would like matrix multiplication use GradMat.matmul(GradMat)");
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
@@ -95,8 +87,8 @@ public class GradMat {
     }
 
     public GradMat div(GradMat other){
-        if (shape()!=other.shape()){
-            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations.");
+        if (!(Arrays.equals(shape(), other.shape()))){
+            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible.");
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
@@ -225,6 +217,18 @@ public class GradMat {
         return this.values[index];
     }
     
+    public GradNode[] flat(){
+        GradNode[] res = new GradNode[shape()[0]*shape()[1]];
+        int idx = 0;
+        for (GradVec row : getValVecs()){
+            for (GradNode node: row.getValues()){
+                res[idx] = node;
+                idx+=1;
+            }
+        }
+        return res;
+    }
+
     public GradVec[] getValVecs(){
         return this.values;
     }
@@ -254,7 +258,7 @@ public class GradMat {
     public void setValue(GradNode newVal, int rowIndex, int colIndex){
         values[rowIndex].setValue(colIndex, newVal);
     }
-        
+
     public int[] shape(){
         return new int[]{this.values.length, this.values[0].getValues().length};
     }

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.xml.crypto.Data;
+
 import java.lang.Math;
+
 public class GradNode{
 
     private static Random rand = new Random();
@@ -89,6 +93,19 @@ public class GradNode{
         return res;
     }
     
+    public GradNode abs(){
+        if (data>=0){
+            GradNode res =  new GradNode(data);
+            res.addChild(this);
+            res.addChildGrad(1.0);
+            return res;
+        }
+        GradNode res = new GradNode(-data);
+        res.addChild(this);
+        res.addChildGrad(-1.0);
+        return res;
+    }
+
     public double getGrad(){
         return this.grad;
     }
