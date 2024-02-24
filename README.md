@@ -1,8 +1,10 @@
 # GradNode: Basic AutoGrad Engine in Java (Work in Progress)
 
 ## Description
-Use GradNode, GradNodeVec and GradNodeMat objects to perform arithmetic operations while Gradients are being kept track of.
+Use GradNode, GradVec and GradMat objects to perform arithmetic operations while Gradients are being kept track of.<br>This can be used to implement
+Machine Learning Models and other Procedures based on Gradient Calculation.
 
-## Usage
-Use GradeNodeMat/GradeNodeVec objects to build Deep-Learning Models, and adjust their values based on the Parameters.<br>
-To Get the Gradient of the value you want to take the derivative of call value.backward(), and the Gradient with respect to every other GradeNode object will be stored in those Objects.
+## How to Use
+Download GradNode.java, GradVec.java and GradMat.java into the path of your project/choice.
+Have Fun!
+
