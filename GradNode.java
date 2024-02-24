@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.Math;
 public class GradNode{
 
     private static Random rand = new Random();
@@ -26,8 +27,8 @@ public class GradNode{
         GradNode res = new GradNode(this.data+other.getData());
         res.addChild(this);
         res.addChild(other);
-        res.childGrads.add(1+this.grad);
-        res.childGrads.add(1+other.getGrad());
+        res.addChildGrad(1.0);
+        res.addChildGrad(1.0);
         return res;
     }
     
@@ -35,8 +36,8 @@ public class GradNode{
         GradNode res = new GradNode(this.data-other.getData());
         res.addChild(this);
         res.addChild(other);
-        res.childGrads.add(1+this.grad);
-        res.childGrads.add(other.getGrad()-1);
+        res.addChildGrad(1.0);
+        res.addChildGrad(-1.0);
         return res;
     }
     
@@ -44,8 +45,8 @@ public class GradNode{
         GradNode res = new GradNode(this.data*other.getData());
         res.addChild(this);
         res.addChild(other);
-        res.childGrads.add(other.getData()+this.grad);
-        res.childGrads.add(this.data+other.getGrad());
+        res.addChildGrad(other.getData());
+        res.addChildGrad(this.data);
         return res;
     }
     
@@ -53,8 +54,38 @@ public class GradNode{
         GradNode res = new GradNode(this.data/other.getData());
         res.addChild(this);
         res.addChild(other);
-        res.childGrads.add(1/other.getData()+this.grad);
-        res.childGrads.add(-(this.data/Math.pow(other.getData(),2))+other.getGrad());
+        res.addChildGrad(1/other.getData());
+        res.addChildGrad(-(this.data/Math.pow(other.getData(),2)));
+        return res;
+    }
+
+    public GradNode exp(){
+        GradNode res = new GradNode(Math.exp(data));
+        res.addChild(this);
+        res.addChildGrad(Math.exp(data));
+        return res;
+    }
+
+    public GradNode pow(GradNode power){
+        GradNode res = new GradNode(Math.pow(this.data, power.data));
+        res.addChild(this);
+        res.addChild(power);
+        res.addChildGrad(Math.pow(power.getData()*data, power.getData()-1));
+        res.addChildGrad(Math.pow(data, power.getData())*Math.log(data));
+        return res;
+    }
+
+    public GradNode sin(){
+        GradNode res = new GradNode(Math.sin(data));
+        res.addChild(this);
+        res.addChildGrad(Math.cos(data));
+        return res;
+    }
+
+    public GradNode cos(){
+        GradNode res = new GradNode(Math.cos(data));
+        res.addChild(this);
+        res.addChildGrad(-Math.sin(data));
         return res;
     }
     
@@ -72,6 +103,10 @@ public class GradNode{
 
     public ArrayList<Double> getChildGrads(){
         return this.childGrads;
+    }
+
+    public void addChildGrad(double grad){
+        childGrads.add(grad);
     }
     
     public void setGrad(double newGrad){

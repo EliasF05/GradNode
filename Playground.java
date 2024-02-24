@@ -44,7 +44,8 @@ public class Playground {
                 loss = loss.add(yPred.sub(yLabel));
             }
         }
-        loss.zeroGrad();
+
+        loss.zeroGrad(); // Reset Gradients
         System.out.println(transFo);
         loss.backward();
         System.out.println(transFo);

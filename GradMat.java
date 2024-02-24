@@ -93,15 +93,12 @@ public class GradMat {
         GradMat res = mat.mul(otherMat);
         GradVec resRow = res.sum(1);
         GradNode resVal = resRow.sum();
-        GradNode res2 = new GradNode(100);
-        GradNode res3 = resVal.add(res2);
         resVal.backward();
         System.out.println(mat);
         System.out.println(otherMat);
         System.out.println(res);
         System.out.println(resRow);
         System.out.println(resVal);
-        System.out.println(res2);
-        System.out.println(res3);
+
     }
 }
