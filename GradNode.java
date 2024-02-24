@@ -26,7 +26,7 @@ public class GradNode{
         this.childGrads = new ArrayList<Double>();
         this.grad = 0.0;
     }
-    
+
     public GradNode add(GradNode other){
         GradNode res = new GradNode(this.data+other.getData());
         res.addChild(this);
@@ -177,5 +177,9 @@ public class GradNode{
 
     public Double data(){
         return data;
+    }
+
+    public static GradNode zero(){
+        return new GradNode(0.0);
     }
 }

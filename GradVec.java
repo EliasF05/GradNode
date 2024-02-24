@@ -128,6 +128,14 @@ public class GradVec {
         }
         return res+"}";
     }
+    
+    public static GradVec zeros(int size){
+        GradVec res = new GradVec(size);
+        for (int i= 0; i<size; i++){
+            res.setValue(i, GradNode.zero());
+        }
+        return res;
+    }
     public static void main(String[] args) {
         GradVec myVec = new GradVec(new double[]{1,2,4});
         GradVec myVec2 = new GradVec(new double[]{3,4, 10});

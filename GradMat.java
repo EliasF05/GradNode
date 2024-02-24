@@ -21,18 +21,17 @@ public class GradMat {
     public GradVec sum(int axis){
         if (axis==0){
             GradVec res = new GradVec(new double[shape()[1]]);
-            for (int i = 0; i<this.values[0].getValues().length; i++){
+            for (int i = 0; i<shape()[1]; i++){
                 res.setValue(i, col(i).sum());
             }
             return res;
         }
-        else{
-            GradVec res = new GradVec(new double[this.values.length]);
-            for (int i =0 ; i<this.values.length; i++){
-                res.setValue(i, row(i).sum());
-            }
-            return res;
+        GradVec res = new GradVec(new double[shape()[0]]);
+        for (int i =0 ; i<shape()[0]; i++){
+            res.setValue(i, row(i).sum());
         }
+        return res;
+        
     }
 
     public GradVec mean(int axis){
@@ -263,12 +262,21 @@ public class GradMat {
         return new int[]{this.values.length, this.values[0].getValues().length};
     }
     
+    @Override
     public String toString(){
         String res = "GradMat{";
         for (GradVec row : values){
             res = res+row+"\n";
         }
         return res+"}\n";
+    }
+    
+    public static GradMat zeros(int[] shape){
+        GradMat res = new GradMat(shape);
+        for (int i = 0; i<shape[0]; i++){
+            res.setGradVec(GradVec.zeros(shape[1]), i);
+        }
+        return res;
     }
     public static void main(String[] args) {
         GradMat mat = new GradMat(new double[][]{{1,2,3},
