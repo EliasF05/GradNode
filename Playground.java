@@ -26,7 +26,7 @@ public class Playground {
         loss.backward();
         System.out.println(transFo);
         System.out.println(loss);
-        double lr = 0.1;
+        double lr = 0.01;
         for (GradNode param: transFo.getValues()){
             param.setData(param.getData()-param.getGrad()*lr);
         }

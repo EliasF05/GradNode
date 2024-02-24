@@ -24,6 +24,10 @@ public class GradVec {
         return res;
     }
     
+    public GradNode mean(){
+        return sum().div(new GradNode(values.length));
+    }
+
     public GradNode dot(GradVec other){
         sameLength(this, other);
         GradNode res = new GradNode(0);
@@ -41,7 +45,65 @@ public class GradVec {
             res.setValue(i, this.values[i].add(other.getValues()[i]));
         }
         return res;
+    }
 
+    public GradVec sub(GradVec other){
+        sameLength(this, other);
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].sub(other.getValues()[i]));
+        }
+        return res;
+    }
+    
+    public GradVec mul(GradVec other){
+        sameLength(this, other);
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].mul(other.getValues()[i]));
+        }
+        return res;
+    }
+
+    public GradVec div(GradVec other){
+        sameLength(this, other);
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].div(other.getValues()[i]));
+        }
+        return res;
+    }
+    
+    public GradVec add(GradNode other){
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].add(other));
+        }
+        return res;
+    }
+
+    public GradVec sub(GradNode other){
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].sub(other));
+        }
+        return res;
+    }
+
+    public GradVec mul(GradNode other){
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].mul(other));
+        }
+        return res;
+    }
+
+    public GradVec div(GradNode other){
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, this.values[i].div(other));
+        }
+        return res;
     }
     
     public static void sameLength(GradVec a, GradVec b){

@@ -157,4 +157,8 @@ public class GradNode{
         }
         return res;
     }
+
+    public Double data(){
+        return data;
+    }
 }
