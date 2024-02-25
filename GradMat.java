@@ -58,7 +58,7 @@ public class GradMat {
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
-            res.setGradVec(other.getValVecs()[i].add(getValVecs()[i]), i);
+            res.setGradVec(getValVecs()[i].add(other.getValVecs()[i]), i);
         }
         return res;
     }
@@ -69,18 +69,18 @@ public class GradMat {
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
-            res.setGradVec(other.getValVecs()[i].sub(getValVecs()[i]), i);
+            res.setGradVec(getValVecs()[i].sub(other.getValVecs()[i]), i);
         }
         return res;
     }
     
     public GradMat mul(GradMat other){
         if (!(Arrays.equals(shape(), other.shape()))){
-            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible. If you would like matrix multiplication use GradMat.matmul(GradMat)");
+            throw new IllegalArgumentException("Matrix Shapes must be identical for element-wise operations."+Arrays.toString(shape())+" and "+Arrays.toString(other.shape())+" not compatible.");
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
-            res.setGradVec(other.getValVecs()[i].mul(getValVecs()[i]), i);
+            res.setGradVec(getValVecs()[i].mul(other.getValVecs()[i]), i);
         }
         return res;
     }
@@ -91,7 +91,7 @@ public class GradMat {
         }
         GradMat res = new GradMat(shape());
         for (int i = 0; i<shape()[0]; i++){
-            res.setGradVec(other.getValVecs()[i].div(getValVecs()[i]), i);
+            res.setGradVec(getValVecs()[i].div(other.getValVecs()[i]), i);
         }
         return res;
     }
@@ -254,6 +254,10 @@ public class GradMat {
         }
     }
     
+    public GradNode getValue(int rowIndex, int colIndex){
+        return values[rowIndex].getValue(colIndex);
+    }
+
     public void setValue(GradNode newVal, int rowIndex, int colIndex){
         values[rowIndex].setValue(colIndex, newVal);
     }

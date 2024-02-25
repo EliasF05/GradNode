@@ -49,7 +49,7 @@ public class Playground {
         loss.backward();
         System.out.println("Weights Pre Training: "+weights);
         System.out.println("Biases Pre Training: "+biases);
-        System.out.println("Loss Pre Training"+loss);
+        System.out.println("Loss Pre Training: "+loss);
 
         // Parameter Update
         double lr = 0.01;

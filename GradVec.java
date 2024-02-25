@@ -120,6 +120,10 @@ public class GradVec {
         return this.values;
     }
     
+    public GradNode getValue(int index){
+        return values[index];
+    }
+
     @Override
     public String toString(){
         String res = "GradVec{";
