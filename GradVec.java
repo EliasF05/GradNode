@@ -2,6 +2,11 @@ public class GradVec {
 
     private GradNode[] values;
 
+
+    /** Creates GradVec object with specified data
+     * 
+     * @param data data to be stored in GradNodes of GradVec
+     */
     public GradVec(double[] data){
         this.values = new GradNode[data.length];
         for (int i =0 ; i<data.length; i++){
@@ -9,6 +14,10 @@ public class GradVec {
         }
     }
     
+    /**
+     * creates GradVec object with GradNode Objects with data as random double in range-1, 1)
+     * @param size size of vector
+     */
     public GradVec(int size){
         this.values = new GradNode[size];
         for (int i = 0; i<size; i++){
@@ -16,6 +25,10 @@ public class GradVec {
         }
     }
     
+    /**
+     * 
+     * @return sum of all GradNode objects' data attributes in GradVec
+     */
     public GradNode sum(){
         GradNode res = new GradNode(0);
         for (GradNode value:values){
@@ -24,10 +37,19 @@ public class GradVec {
         return res;
     }
     
+    /**
+     * 
+     * @return mean of all GradNode objects' data attributes in GradVEc
+     */
     public GradNode mean(){
         return sum().div(new GradNode(values.length));
     }
 
+    /**
+     * dot product of all GradNode object's data attributes in GradVec
+     * @param other serving as other factor in dot product
+     * @return dot product of all GradNode object's data attributes in GradVec, and GradVec other
+     */
     public GradNode dot(GradVec other){
         sameLength(this, other);
         GradNode res = new GradNode(0);
@@ -38,6 +60,11 @@ public class GradVec {
 
     }
     
+    /**
+     * element-wise adding of vectors
+     * @param other GradVec to be added
+     * @return GradVec object with resulting values
+     */
     public GradVec add(GradVec other){
         sameLength(this, other);
         GradVec res = new GradVec(new double[this.values.length]);
@@ -47,6 +74,11 @@ public class GradVec {
         return res;
     }
 
+    /**
+     * element-wise subtraction of vectors
+     * @param other GradVec to be subtracted
+     * @return GradVec object with resulting Values
+     */
     public GradVec sub(GradVec other){
         sameLength(this, other);
         GradVec res = new GradVec(new double[this.values.length]);
@@ -56,6 +88,11 @@ public class GradVec {
         return res;
     }
     
+    /**
+     * element-wise multiplication of vectors
+     * @param other GradVec to be multiplied with
+     * @return GradVec object with resulting values
+     */
     public GradVec mul(GradVec other){
         sameLength(this, other);
         GradVec res = new GradVec(new double[this.values.length]);
@@ -65,6 +102,11 @@ public class GradVec {
         return res;
     }
 
+    /**
+     * element-wise division of vectors
+     * @param other GradVec to serve as divisor
+     * @return GradVec object with resulting values
+     */
     public GradVec div(GradVec other){
         sameLength(this, other);
         GradVec res = new GradVec(new double[this.values.length]);
@@ -74,6 +116,11 @@ public class GradVec {
         return res;
     }
     
+    /**
+     * adding vector with scalar
+     * @param other scalar to be added
+     * @return GradVec object with resulting values
+     */
     public GradVec add(GradNode other){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i = 0; i<this.values.length; i++){
@@ -82,6 +129,11 @@ public class GradVec {
         return res;
     }
 
+    /**
+     * subtracting scalar from vector
+     * @param other scalar to be subtracted
+     * @return GradVec object with resulting values
+     */
     public GradVec sub(GradNode other){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i = 0; i<this.values.length; i++){
@@ -90,6 +142,11 @@ public class GradVec {
         return res;
     }
 
+    /**
+     * multiplying vector with scalar
+     * @param other scalar to be multiplied with
+     * @return GradVec object with resulting values
+     */
     public GradVec mul(GradNode other){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i = 0; i<this.values.length; i++){
@@ -98,6 +155,11 @@ public class GradVec {
         return res;
     }
 
+    /**
+     * dividing vector with scalar
+     * @param other scalar to serve as divisor
+     * @return GradVec object with resulting values
+     */
     public GradVec div(GradNode other){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i = 0; i<this.values.length; i++){
@@ -106,20 +168,39 @@ public class GradVec {
         return res;
     }
     
+    /**
+     * Check if GradVec's are of the same Size, else throw Exception
+     * @param a GradVec one
+     * @param b GradVec two
+     */
     public static void sameLength(GradVec a, GradVec b){
         if (a.getValues().length!=b.getValues().length){
             throw new IllegalArgumentException("dot product cannot be performed for vectors of sizes: "+a.getValues().length+" and "+b.getValues().length);
         }
     }
     
+    /**
+     * set GradNode object in GradVec to specified GradNode
+     * @param index index in vector (0-indexed) where insertion is to be performed
+     * @param val GradNode to be inserted
+     */
     public void setValue(int index, GradNode val){
         this.values[index] = val;
     }
     
+    /**
+     * 
+     * @return Array of GradNode objects of GradVec
+     */
     public GradNode[] getValues(){
         return this.values;
     }
     
+    /**
+     * 
+     * @param index index of desired GradNode
+     * @return GradNode at specified index (0-indexed)
+     */
     public GradNode getValue(int index){
         return values[index];
     }
@@ -133,6 +214,11 @@ public class GradVec {
         return res+"}";
     }
     
+    /**
+     * 
+     * @param size desired size
+     * @return zero vector in R^size
+     */
     public static GradVec zeros(int size){
         GradVec res = new GradVec(size);
         for (int i= 0; i<size; i++){

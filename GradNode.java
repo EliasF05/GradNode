@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.xml.crypto.Data;
-
 import java.lang.Math;
 
 public class GradNode{
@@ -12,14 +9,19 @@ public class GradNode{
     private ArrayList<GradNode> children;
     private ArrayList<Double> childGrads;
     private double grad;
-
+    /** Creates GradNode Object with specified data
+     * 
+     * @param data the data attribute of the Node
+     */
     public GradNode(double data){
         this.data = data;
         this.children = new ArrayList<GradNode>();
         this.childGrads = new ArrayList<Double>();
         this.grad = 0.0;
     }
-    
+    /** Creates GradNode Object with random double in range(-1, 1) as data
+     * 
+     */
     public GradNode(){
         this.data = rand.nextDouble(-1, 1);
         this.children = new ArrayList<GradNode>();
@@ -27,6 +29,11 @@ public class GradNode{
         this.grad = 0.0;
     }
 
+    /**
+     * Adds GradNode Objects' data attribute
+     * @param other GradNode to be added to this node
+     * @return GradNode object with resulting data value
+     */
     public GradNode add(GradNode other){
         GradNode res = new GradNode(this.data+other.getData());
         res.addChild(this);
@@ -36,6 +43,11 @@ public class GradNode{
         return res;
     }
     
+    /**
+     * Subtracts GradNode Objects' data attribute
+     * @param other GradNode to be subtracted from this node
+     * @return GradNode object with resulting data value
+     */
     public GradNode sub(GradNode other){
         GradNode res = new GradNode(this.data-other.getData());
         res.addChild(this);
@@ -45,6 +57,11 @@ public class GradNode{
         return res;
     }
     
+    /**
+     * Multiplies GradNode Objects' data attribute
+     * @param other GradNode to be multiplied with this node
+     * @return GradNode object with resulting data value
+     */
     public GradNode mul(GradNode other){
         GradNode res = new GradNode(this.data*other.getData());
         res.addChild(this);
@@ -54,6 +71,11 @@ public class GradNode{
         return res;
     }
     
+    /**
+     * Divides GradNode Object's data attribute
+     * @param other GradNode to serve as divisor of this node
+     * @return GradNode object with resuling data value
+     */
     public GradNode div(GradNode other){
         GradNode res = new GradNode(this.data/other.getData());
         res.addChild(this);
@@ -63,6 +85,10 @@ public class GradNode{
         return res;
     }
 
+    /**
+     * Exponentiates GradNode's data attribute
+     * @return GradNode object with resulting data value
+     */
     public GradNode exp(){
         GradNode res = new GradNode(Math.exp(data));
         res.addChild(this);
@@ -70,6 +96,11 @@ public class GradNode{
         return res;
     }
 
+    /**
+     * Takes GradNode's data attribute to power 
+     * @param power GradNode to serve as exponent
+     * @return GradNode object with resulting data value
+     */
     public GradNode pow(GradNode power){
         GradNode res = new GradNode(Math.pow(this.data, power.data));
         res.addChild(this);
@@ -79,6 +110,10 @@ public class GradNode{
         return res;
     }
 
+    /**
+     * Computes sin of GradNode's data attribute
+     * @return GradNode object with resulting data value
+     */
     public GradNode sin(){
         GradNode res = new GradNode(Math.sin(data));
         res.addChild(this);
@@ -86,6 +121,10 @@ public class GradNode{
         return res;
     }
 
+    /**
+     * Computes cosine of GradNode's data attribute
+     * @return GradNode object with resulting data value
+     */
     public GradNode cos(){
         GradNode res = new GradNode(Math.cos(data));
         res.addChild(this);
@@ -93,6 +132,10 @@ public class GradNode{
         return res;
     }
     
+    /**
+     * Computes absoulte value of GradNode's data attribute
+     * @return GradNode object with resulting data value
+     */
     public GradNode abs(){
         if (data>=0){
             GradNode res =  new GradNode(data);
@@ -106,38 +149,69 @@ public class GradNode{
         return res;
     }
 
+    /**
+     * 
+     * @return Gradient attribute of node
+     */
     public double getGrad(){
         return this.grad;
     }
     
+    /**
+     * 
+     * @return Data attribute of node
+     */
     public double getData(){
         return this.data;
     }
     
+    /**
+     * 
+     * @return Children in computational graph of node
+     */
     public ArrayList<GradNode> getChildren(){
         return this.children;
     }
 
+    /**
+     * 
+     * @return Gradients of node with respect to all its children
+     */
     public ArrayList<Double> getChildGrads(){
         return this.childGrads;
     }
 
-    public void addChildGrad(double grad){
+    private void addChildGrad(double grad){
         childGrads.add(grad);
     }
     
+    /**
+     * sets gradient to specified value
+     * @param newGrad new gradient
+     */
     public void setGrad(double newGrad){
         this.grad = newGrad;
     }
     
+    /**
+     * sets data to specified value
+     * @param newGrad new data
+     */
     public void setData(double newData){
         this.data = newData;
     }
     
+    /**
+     * adds child in computational Graph
+     * @param child child to be added
+     */
     public void addChild(GradNode child){
         this.children.add(child);
     }
     
+    /**
+     * Computes derivative with respect to all children and stores them in their grad attribute
+     */
     public void backward(){
         this.grad = 1;
         for (int i = 0; i<childGrads.size(); i++){
@@ -153,6 +227,9 @@ public class GradNode{
         }
     }
     
+    /**
+     * Sets gradient of node and all of its childrren to 0
+     */
     public void zeroGrad(){
         this.grad = 0;
         for (int i =0; i<children.size(); i++){
@@ -179,6 +256,10 @@ public class GradNode{
         return data;
     }
 
+    /**
+     * 
+     * @return GradNode Object with data=0.0
+     */
     public static GradNode zero(){
         return new GradNode(0.0);
     }
