@@ -654,20 +654,23 @@ public class GradPriz {
         return values[dim0].getValue(dim1, dim2);
     }
 
+    /**
+     * 
+     * @param newNode GradNode to be inserted
+     * @param dim0 index along dimension 0 where GradNode is to be inserted
+     * @param dim1 index along dimension 1 where GradNode is to be inserted
+     * @param dim2 index along dimension 2 where GradNode is to be inserted
+     */
     public void setValue(GradNode newNode, int dim0, int dim1, int dim2){
         values[dim0].setValue(newNode, dim1, dim2);
     }
 
+    /**
+     * 
+     * @return shape of GradPriz as Integer Array
+     */
     public int[] shape(){
         return new int[]{values.length, values[0].getVectors().length, values[0].getVectors()[0].getValues().length};
-    }
-
-    public static GradPriz zeros(int[] shape){
-        GradPriz res = new GradPriz(shape);
-        for (int i = 0; i<shape[0]; i++){
-            res.setMat(GradMat.zeros(new int[]{shape[1], shape[2]}), i);
-        }
-        return res;
     }
 
     @Override
@@ -678,6 +681,20 @@ public class GradPriz {
         }
         return res+"}\n";
     }
+
+    /**
+     * 
+     * @param shape desired shape
+     * @return zero GradPriz of shape
+     */
+    public static GradPriz zeros(int[] shape){
+        GradPriz res = new GradPriz(shape);
+        for (int i = 0; i<shape[0]; i++){
+            res.setMat(GradMat.zeros(new int[]{shape[1], shape[2]}), i);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         GradPriz myCube = new GradPriz(new double[][][]{
             {{1,2,3,4},
