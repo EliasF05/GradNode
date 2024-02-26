@@ -1,4 +1,4 @@
-# GradNode: Basic AutoGrad Engine in Java (Work in Progress)
+# GradNode: Basic AutoGrad Engine in Java
 
 ## Description
 Use GradNode, GradVec, GradMat and GradPriz objects to perform arithmetic and algebraic operations while Gradients are being kept track of.<br>This can be used to implement
