@@ -205,6 +205,17 @@ public class GradVec {
         return values[index];
     }
 
+    /**
+     * 
+     * @return Single GradNode contained in GradVec
+     */
+    public GradNode toNode(){
+        if (values.length!=1){
+            throw new IllegalArgumentException("Cannot convert GradVec of size "+values.length+" to GradNode. Only size 1 allowed.");
+        }
+        return values[0];
+    }
+
     @Override
     public String toString(){
         String res = "GradVec{";
