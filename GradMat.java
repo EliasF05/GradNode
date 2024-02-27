@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class GradMat {
+public class GradMat{
 
     private GradVec[] values;
     
@@ -400,6 +400,31 @@ public class GradMat {
      */
     public int[] shape(){
         return new int[]{this.values.length, this.values[0].getValues().length};
+    }
+
+    /**
+     * 
+     * @return single element in matrix
+     */
+    public GradNode asNode(){
+        if (values.length!=1||values[0].getValues().length!=1){
+            throw new IllegalArgumentException("Cannot convert GradMat of shape "+Arrays.toString(shape())+" to GradNode. Only shape (1,1) allowed.");
+        }
+        return getValue(0, 0);
+    }
+
+    /**
+     * 
+     * @return single row or column vector of GradMat
+     */
+    public GradVec asVec(){
+        if (values.length!=1&&values[0].getValues().length!=1){
+            throw new IllegalArgumentException("Cannot convert GradMat of shape "+Arrays.toString(shape())+" to vector. Only shapes (n,1) or (1,n) allowed");
+        }
+        if (values.length==1){
+            return values[0];
+        }
+        return col(0);
     }
     
     @Override

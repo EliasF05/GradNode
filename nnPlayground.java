@@ -24,14 +24,13 @@ public class nnPlayground {
         for (int i = 0; i<trainX.length; i++){
             GradMat yPred = myLayer.forward(trainX[i]);
             GradVec yLabel = trainY[i];
-            loss = loss.add((yLabel.getValue(0).sub(yPred.getValue(0, 0)).pow(new GradNode(2))));
-            loss = loss.add((yLabel.getValue(1).sub(yPred.getValue(1, 0)).pow(new GradNode(2))));
+            loss = loss.add(Loss.SE(yPred, yLabel));
         }
         loss.backward();
         System.out.println(myLayer);
         System.out.println(loss);
         // Backpropagation
-        double lr = 0.00001;
+        double lr = 0.005;
         for (GradNode param : myLayer.params()){
             param.setData(param.getData()-param.getGrad()*lr);;
         }
@@ -42,8 +41,7 @@ public class nnPlayground {
         for (int i = 0; i<trainX.length; i++){
             GradMat yPred = myLayer.forward(trainX[i]);
             GradVec yLabel = trainY[i];
-            loss = loss.add((yLabel.getValue(0).sub(yPred.getValue(0, 0)).pow(new GradNode(2))));
-            loss = loss.add((yLabel.getValue(1).sub(yPred.getValue(1, 0)).pow(new GradNode(2))));
+            loss = loss.add(Loss.SE(yPred, yLabel));
         }
         loss.backward();
         System.out.println(myLayer);

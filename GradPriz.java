@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class GradPriz {
+public class GradPriz{
 
     private GradMat[] values;
 
@@ -671,7 +671,7 @@ public class GradPriz {
      */
     public int[] shape(){
         return new int[]{values.length, values[0].getVectors().length, values[0].getVectors()[0].getValues().length};
-    }
+    }   
 
     @Override
     public String toString(){

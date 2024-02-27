@@ -1,4 +1,4 @@
-public class GradVec {
+public class GradVec{
 
     private GradNode[] values;
 
@@ -163,7 +163,20 @@ public class GradVec {
     public GradVec div(GradNode other){
         GradVec res = new GradVec(new double[this.values.length]);
         for (int i = 0; i<this.values.length; i++){
-            res.setValue(i, this.values[i].div(other));
+            res.setValue(i, values[i].div(other));
+        }
+        return res;
+    }
+
+    /**
+     * taking every GradNode of GradVec to power
+     * @param power power to be raised to
+     * @return GradVec object with resulting values
+     */
+    public GradVec pow(GradNode power){
+        GradVec res = new GradVec(new double[this.values.length]);
+        for (int i = 0; i<this.values.length; i++){
+            res.setValue(i, values[i].pow(power));
         }
         return res;
     }
@@ -209,7 +222,7 @@ public class GradVec {
      * 
      * @return Single GradNode contained in GradVec
      */
-    public GradNode toNode(){
+    public GradNode asNode(){
         if (values.length!=1){
             throw new IllegalArgumentException("Cannot convert GradVec of size "+values.length+" to GradNode. Only size 1 allowed.");
         }
