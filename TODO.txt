@@ -1,1 +1,1 @@
-Layer initialization, in_features is not batch size, but features of data
+Sequential
