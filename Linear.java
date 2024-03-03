@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Linear implements Layer{
 
     private GradMat weights;
@@ -13,9 +15,9 @@ public class Linear implements Layer{
         if (bias) {this.biases = new GradVec(out_features);}
         else {this.biases = GradVec.zeros(out_features);}
     }
-    
+
     public GradVec forward(GradVec in){
-        return weights.matmul(in).add(biases);
+        return (weights.matmul(in)).add(biases);
     }
    
     public GradNode[] params(){

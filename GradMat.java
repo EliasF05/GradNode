@@ -90,9 +90,9 @@ public class GradMat{
         if (other.getValues().length!=shape()[1]){
             throw new IllegalArgumentException("matrix-vector product not defined for matrix with shape: "+Arrays.toString(shape())+" and vector with size: "+other.getValues().length);
         }
-        GradVec res = new GradVec(shape()[1]);
+        GradVec res = new GradVec(shape()[0]);
         for (int i = 0; i<values.length; i++){
-            res.setValue(i, values[i].dot(other));
+            res.setValue(i, row(i).dot(other));
         }
         return res;
     }

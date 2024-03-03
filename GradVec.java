@@ -57,7 +57,6 @@ public class GradVec{
             res = res.add(this.values[i].mul(other.getValues()[i]));
         }
         return res;
-
     }
     
     /**
