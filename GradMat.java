@@ -82,6 +82,22 @@ public class GradMat{
     }
 
     /**
+     * matrix-vector product
+     * @param other vector acting in matrix-vector product
+     * @return result of matrix-vector product
+     */
+    public GradVec matmul(GradVec other){
+        if (other.getValues().length!=shape()[1]){
+            throw new IllegalArgumentException("matrix-vector product not defined for matrix with shape: "+Arrays.toString(shape())+" and vector with size: "+other.getValues().length);
+        }
+        GradVec res = new GradVec(shape()[1]);
+        for (int i = 0; i<values.length; i++){
+            res.setValue(i, values[i].dot(other));
+        }
+        return res;
+    }
+
+    /**
      * @param other GradMat to be added
      * @return result of element-wise add with other
      */
@@ -146,8 +162,8 @@ public class GradMat{
 
     /**
      * Rules for Broadcasting:
-     * If other is of size shape[0](row Amount), other gets broadcasted along axis 1
-     * Otherwise, if other is of size[1](column Amount), other gets broadcasted along axis 0
+     * If other is of size shape[1](row Amount), other gets broadcasted along axis 0
+     * Otherwise, if other is of size[0](column Amount), other gets broadcasted along axis 1
      * @param other GradVec to be broadcasted and added
      * @return result of element-wise addition with other
      */
@@ -172,8 +188,8 @@ public class GradMat{
 
     /**
      * Rules for Broadcasting:
-     * If other is of size shape[0](row Amount), other gets broadcasted along axis 1
-     * Otherwise, if other is of size[1](column Amount), other gets broadcasted along axis 0
+     * If other is of size shape[1](row Amount), other gets broadcasted along axis 0
+     * Otherwise, if other is of size[0](column Amount), other gets broadcasted along axis 1
      * @param other GradVec to be broadcasted and subtracted
      * @return result of element-wise subtraction with other
      */
@@ -198,8 +214,8 @@ public class GradMat{
 
     /**
      * Rules for Broadcasting:
-     * If other is of size shape[0](row Amount), other gets broadcasted along axis 1
-     * Otherwise, if other is of size[1](column Amount), other gets broadcasted along axis 0
+     * If other is of size shape[1](row Amount), other gets broadcasted along axis 0
+     * Otherwise, if other is of size[0](column Amount), other gets broadcasted along axis 1
      * @param other GradVec to be broadcasted and multiplied with
      * @return result of element-wise multiplied with other
      */
@@ -224,8 +240,8 @@ public class GradMat{
 
     /**
      * Rules for Broadcasting:
-     * If other is of size shape[0](row Amount), other gets broadcasted along axis 1
-     * Otherwise, if other is of size[1](column Amount), other gets broadcasted along axis 0
+     * If other is of size shape[1](row Amount), other gets broadcasted along axis 0
+     * Otherwise, if other is of size[0](column Amount), other gets broadcasted along axis 1
      * @param other GradVec to be broadcasted and serve as divisor
      * @return result of element-wise division with other
      */
