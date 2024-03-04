@@ -1,1 +1,1 @@
-Sequential
+perhaps try this out on MNIST Digits
