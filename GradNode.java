@@ -149,6 +149,19 @@ public class GradNode{
         return res;
     }
 
+    public static GradNode max(GradNode a, GradNode b){
+        if (a.data>=b.data){
+            GradNode res = new GradNode(a.data);
+            res.addChild(a);
+            res.addChildGrad(1.0);
+            return res;
+        }
+        GradNode res = new GradNode(b.data);
+        res.addChild(b);
+        res.addChildGrad(1.0);
+        return res;
+    }
+
     /**
      * 
      * @return Gradient attribute of node

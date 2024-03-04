@@ -7,5 +7,6 @@ public interface Layer {
     public GradVec getBiases();
     public String shape();
     public void step(double learning_rate);
+    public void activate(Activation function);
 }
 

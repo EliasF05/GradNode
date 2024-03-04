@@ -14,14 +14,21 @@ public class nnPlayground {
         };
         GradVec[] trainY = {new GradVec(new double[]{1.0}), new GradVec(new double[]{1.0}), new GradVec(new double[]{0.0})};
 
-        // Here's our model
-        Linear myLayer = new Linear(2, 1);
+        // Here's our model (Note: in this example, a single hidden layer would be a better fit as the relation is very simple,
+        // but let's try out multiple layers for fun :) )
+        Linear hidden1 = new Linear(2, 5);
+        Linear hidden2 = new Linear(5, 1);
         JNN myModel = new JNN(new Layer[]{
-            myLayer,
+            hidden1,
+            hidden2,
         });
         
+        // We could add some non-linearity:
+        // hidden1.activate(new Sigmoid());
+        // But in this example, that makes things unnecessarily complicated
+
         // Let's look at a training Loop:
-        int epochs = 1000;
+        int epochs = 100;
         double learning_rate = 0.01;
 
         GradNode loss = new GradNode(0.0);
@@ -33,7 +40,7 @@ public class nnPlayground {
 
             // Calculate Loss (Forward Pass)
             loss = Loss.MSE(trainY, myModel, trainX);
-            if (i==1||i%100==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
+            if (i==1||i%10==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
             
             // Backpropagate
             loss.backward();

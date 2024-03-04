@@ -34,6 +34,15 @@ public class JNN{
     }
 
     /**
+     * put output of specified layer through an activation function
+     * @param layerIndex index of layer desired in array of hidden layers (0-indexed)
+     * @param function desired activation function
+     */
+    public void activate(int layerIndex, Activation function){
+        layers[layerIndex].activate(function);
+    }
+
+    /**
      * 
      * @return all layers of model ar array of Layer objects 
      */

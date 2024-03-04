@@ -2,7 +2,7 @@ public class Linear implements Layer{
 
     private GradMat weights;
     private GradVec biases;
-
+    private Activation actFunction = new Identity();
     /**
      * 
      * @param in_features amount of attributes of input
@@ -30,7 +30,8 @@ public class Linear implements Layer{
      * @return result of linear transformation: weights*(in) + biases (if bias=True) 
      */
     public GradVec forward(GradVec in){
-        return (weights.matmul(in)).add(biases);
+        GradVec linearOut =  (weights.matmul(in)).add(biases);
+        return actFunction.forward(linearOut);
     }
 
     /**
@@ -41,6 +42,14 @@ public class Linear implements Layer{
         for (GradNode weight: weights.flat()){
             weight.setData(weight.getData()-weight.getGrad()*learning_rate);
         }
+    }
+
+    /**
+     * put output of layer through an activation function before it gets to the next layer
+     * @param function desired activation function
+     */
+    public void activate(Activation function){
+        actFunction = function;
     }
     
     /**
