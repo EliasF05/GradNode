@@ -23,7 +23,7 @@ public class nnPlayground {
 
         GradNode loss = new GradNode(0.0);
 
-        for (int i = 0; i<epochs; i++){
+        for (int i = 1; i<=epochs; i++){
 
             // Reset Gradients
             loss.zeroGrad();
