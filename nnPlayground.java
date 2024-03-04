@@ -1,5 +1,6 @@
 public class nnPlayground {
     public static void main(String[] args) {
+        // Initializing some very simple Data
         GradVec[] trainX = new GradVec[]{
             new GradVec(new double[]{
                 1,0
@@ -12,6 +13,8 @@ public class nnPlayground {
             })
         };
         GradVec[] trainY = {new GradVec(new double[]{1.0}), new GradVec(new double[]{1.0}), new GradVec(new double[]{0.0})};
+
+        // Here's our model
         Linear myLayer = new Linear(2, 1);
         JNN myModel = new JNN(new Layer[]{
             myLayer,
@@ -28,7 +31,7 @@ public class nnPlayground {
             // Reset Gradients
             loss.zeroGrad();
 
-            // Calculate Loss
+            // Calculate Loss (Forward Pass)
             loss = Loss.MSE(trainY, myModel, trainX);
             if (i%10==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
             
