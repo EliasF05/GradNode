@@ -3,5 +3,6 @@ public interface Layer {
     public GradMat getWeights();
     public GradVec getBiases();
     public String shape();
+    public void step(double learning_rate);
 }
 

@@ -14,6 +14,12 @@ public class JNN{
         return res;
     }
 
+    public void step(double learning_rate){
+        for (Layer layer: layers){
+            layer.step(learning_rate);
+        }
+    }
+
     public Layer[] getLayers(){
         return layers;
     }

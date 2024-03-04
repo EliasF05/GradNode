@@ -17,6 +17,12 @@ public class Linear implements Layer{
     public GradVec forward(GradVec in){
         return (weights.matmul(in)).add(biases);
     }
+
+    public void step(double learning_rate){
+        for (GradNode weight: weights.flat()){
+            weight.setData(weight.getData()-weight.getGrad()*learning_rate);
+        }
+    }
    
     public GradNode[] params(){
         GradNode[] res = new GradNode[weights.shape()[0]*weights.shape()[1]+biases.getValues().length];

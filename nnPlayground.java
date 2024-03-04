@@ -16,18 +16,28 @@ public class nnPlayground {
         JNN myModel = new JNN(new Layer[]{
             myLayer,
         });
-        GradNode loss = Loss.MSE(trainY, myModel, trainX);
-        loss.backward();
-        System.out.println(loss);
-        System.out.println(myLayer);
-        double lr = 0.01;
-        for (GradNode param: myLayer.params()){
-            param.setData(param.getData()-(lr*param.getGrad()));
+        
+        // Let's look at a training Loop:
+        int epochs = 100;
+        double learning_rate = 0.01;
+
+        GradNode loss = new GradNode(0.0);
+
+        for (int i = 0; i<epochs; i++){
+
+            // Reset Gradients
+            loss.zeroGrad();
+
+            // Calculate Loss
+            loss = Loss.MSE(trainY, myModel, trainX);
+            if (i%10==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
+            
+            // Backpropagate
+            loss.backward();
+
+            // Update Parameters
+            myModel.step(learning_rate);
         }
-        loss.zeroGrad();
-        loss = Loss.MSE(trainY, myModel, trainX);
-        System.out.println(loss);
-        System.out.println(myLayer);
         
     }
 }
