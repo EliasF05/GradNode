@@ -21,7 +21,7 @@ public class nnPlayground {
         });
         
         // Let's look at a training Loop:
-        int epochs = 100;
+        int epochs = 1000;
         double learning_rate = 0.01;
 
         GradNode loss = new GradNode(0.0);
@@ -33,7 +33,7 @@ public class nnPlayground {
 
             // Calculate Loss (Forward Pass)
             loss = Loss.MSE(trainY, myModel, trainX);
-            if (i%10==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
+            if (i==1||i%100==0){System.out.println("Epoch: "+i+ ", Loss: "+loss.getData());}
             
             // Backpropagate
             loss.backward();
