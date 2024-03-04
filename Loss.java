@@ -24,6 +24,15 @@ public class Loss {
         return total.div(new GradNode(yPred.length));
     }
 
+    public static GradNode MSE(GradVec[] trainY, JNN Model, GradVec[] in){
+        // Forward Pass
+        GradNode loss = new GradNode(0.0);
+        for (int i = 0; i<in.length; i++){
+            loss = loss.add(SE(Model.forward(in[i]), trainY[i]));
+        }
+        return loss;
+    }
+
     public static GradNode MSE(GradVec [] yPred, GradVec [] yLabels){
         GradNode total = new GradNode(0.0);
         for (int i = 0; i<yPred.length; i++){

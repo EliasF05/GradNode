@@ -13,10 +13,10 @@ public class nnPlayground {
         };
         GradVec[] trainY = {new GradVec(new double[]{1.0}), new GradVec(new double[]{1.0}), new GradVec(new double[]{0.0})};
         Linear myLayer = new Linear(2, 1);
-        GradNode loss = new GradNode(0.0);
-        for (int i = 0; i<trainX.length; i++){
-            loss = loss.add(Loss.SE(myLayer.forward(trainX[i]), trainY[i]));
-        }
+        JNN myModel = new JNN(new Layer[]{
+            myLayer,
+        });
+        GradNode loss = Loss.MSE(trainY, myModel, trainX);
         loss.backward();
         System.out.println(loss);
         System.out.println(myLayer);
@@ -24,10 +24,8 @@ public class nnPlayground {
         for (GradNode param: myLayer.params()){
             param.setData(param.getData()-(lr*param.getGrad()));
         }
-        loss = new GradNode(0.0);
-        for (int i = 0; i<trainX.length; i++){
-            loss = loss.add(Loss.SE(myLayer.forward(trainX[i]), trainY[i]));
-        }
+        loss.zeroGrad();
+        loss = Loss.MSE(trainY, myModel, trainX);
         System.out.println(loss);
         System.out.println(myLayer);
         

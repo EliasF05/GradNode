@@ -34,6 +34,14 @@ public class Linear implements Layer{
         return res;
     }
 
+    public GradMat getWeights(){
+        return weights;
+    }
+
+    public GradVec getBiases(){
+        return biases;
+    }
+
     @Override
     public String toString(){
         String res = "Linear{Weights{";
@@ -45,6 +53,10 @@ public class Linear implements Layer{
             res = res+node;
         }
         return res+"}}";
+    }
+
+    public String shape(){
+        return "in_features="+weights.shape()[0]+", out_features="+weights.shape()[1];
     }
 
 }
