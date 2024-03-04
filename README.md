@@ -1,10 +1,8 @@
-# GradNode: Basic AutoGrad Engine in Java
+# JNN: Basic Deep-Learning Framework in Java
 
 ## Description
-Use GradNode, GradVec, GradMat and GradPriz objects to perform arithmetic and algebraic operations while Gradients are being kept track of.<br>This can be used to implement
-Machine Learning Models and other Procedures based on Gradient Calculation.
+JNN is a very basic deep learning framework in Java that makes use of GradNode to implement Layer and Neural Network Classes. 
 
-## How to Use
-Download the Folder into the path of your project/choice.
-Have Fun!
-
+## Why?
+1. Personal Project to prove my understanding of basic linear Neural Networks to myself
+2. Who knows when being able to implement Machine Learning Models might come in handy
