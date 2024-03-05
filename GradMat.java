@@ -213,6 +213,7 @@ public class GradMat{
     }
 
     /**
+     * NOTE: This, by default will not necessarily be the matrix-vector product. For matrix-vector product call GradMat.matmul(GradVec)
      * Rules for Broadcasting:
      * If other is of size shape[1](row Amount), other gets broadcasted along axis 0
      * Otherwise, if other is of size[0](column Amount), other gets broadcasted along axis 1
