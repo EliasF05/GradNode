@@ -3,6 +3,7 @@ public class Linear implements Layer{
     private GradMat weights;
     private GradVec biases;
     private Activation actFunction = new Identity();
+    private boolean bias;
     /**
      * 
      * @param in_features amount of attributes of input
@@ -10,7 +11,7 @@ public class Linear implements Layer{
      */
     public Linear(int in_features, int out_features){
         this.weights = new GradMat(new int[]{out_features, in_features});
-        this.biases = new GradVec(out_features);
+        this.biases = GradVec.zeros(out_features);
     }
 
     /**
@@ -20,9 +21,9 @@ public class Linear implements Layer{
      * @param bias determine wether an additive bias will be added to learning process on top of weights
      */
     public Linear(int in_features, int out_features, boolean bias){
-        this.weights = new GradMat(new int[]{in_features, out_features});
-        if (bias) {this.biases = new GradVec(out_features);}
-        else {this.biases = GradVec.zeros(out_features);}
+        this.weights = new GradMat(new int[]{out_features, in_features});
+        this.biases = GradVec.zeros(out_features);
+        this.bias = bias;
     }
 
     /**
@@ -30,7 +31,13 @@ public class Linear implements Layer{
      * @return result of linear transformation: weights*(in) + biases (if bias=True) 
      */
     public GradVec forward(GradVec in){
-        GradVec linearOut =  (weights.matmul(in)).add(biases);
+        GradVec linearOut;
+        if (bias){
+            linearOut = (weights.matmul(in)).add(biases);
+        }
+        else{
+            linearOut = weights.matmul(in);
+        }
         return actFunction.forward(linearOut);
     }
 

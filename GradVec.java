@@ -249,6 +249,18 @@ public class GradVec{
         }
         return res;
     }
+
+    /**
+     * one-hot encodes specified value
+     * @param val index to be 1 in resulting GradVec
+     * @param size desired size of one_hot GradVec
+     * @return resulting GradVec
+     */
+    public static GradVec one_hot(GradNode val, int size){
+        GradVec res = zeros(size);
+        res.setValue((int)(val.data()/1), new GradNode(1.0));
+        return res;
+    }
     public static void main(String[] args) {
         GradVec myVec = new GradVec(new double[]{1,2,4});
         GradVec myVec2 = new GradVec(new double[]{3,4, 10});
