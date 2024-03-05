@@ -59,7 +59,7 @@ public class Datasets {
         rowIndex = 0;
         String line2;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(digitsTrain))){
+        try (BufferedReader br = new BufferedReader(new FileReader(digitsTest))){
             while ((line2 = br.readLine()) !=null&&rowIndex<2000){
                 String[] columns = line2.split(csvSplitBy);
                 firstColumn[rowIndex] = new GradNode(Integer.parseInt(columns[0]));

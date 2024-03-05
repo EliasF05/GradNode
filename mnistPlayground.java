@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-
 public class mnistPlayground {
     public static void main(String[] args) {
 
@@ -8,22 +6,25 @@ public class mnistPlayground {
         System.out.println("Read Successfull");
 
         // Let's build our model (784 pixels per image)
-        Linear hidden1 = new Linear(784, 28);
-        Linear hidden2 = new Linear(28,10);
+        Linear hidden1 = new Linear(784, 64);
+        Linear hidden2 = new Linear(64, 28);
+        Linear hidden3 = new Linear(28,10);
 
         // Let's add a non-linearity to the output to scale it between 0-1
         hidden1.activate(new Sigmoid());
         hidden2.activate(new Sigmoid());
+        hidden3.activate(new Sigmoid());
 
         JNN digitModel = new JNN(new Layer[]{
             hidden1, 
             hidden2, 
+            hidden3,
         });
 
         // Let's train our model
         int epochs = 200;
         double learning_rate = 0.01;
-        int batch_size = 32;
+        int batch_size = 8;
 
         GradNode loss, testLoss;
 
