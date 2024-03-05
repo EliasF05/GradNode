@@ -65,9 +65,19 @@ public class Loss {
         // Forward Pass
         GradNode loss = new GradNode(0.0);
         for (int i = 0; i<in.length; i++){
-            loss = loss.add(SE(Model.forward(in[i]), trainY[i]));
+            loss = loss.add(MSE(Model.forward(in[i]), trainY[i]));
         }
         return loss.div(new GradNode(in.length));
+    }
+
+    /**
+     * Espcially useful for one-hot encoded labels
+     * @param yPred predicted outcome
+     * @param yLabels actual outcome
+     * @return mean squared error
+     */
+    public static GradNode MSE(GradVec yPred, GradVec yLabels){
+        return SE(yPred, yLabels).div(new GradNode(yPred.getValues().length));
     }
 
     /**

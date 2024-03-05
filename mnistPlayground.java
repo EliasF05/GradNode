@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 
 public class mnistPlayground {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class mnistPlayground {
         // Let's train our model
         int epochs = 200;
         double learning_rate = 0.01;
-        int batch_size = 16;
+        int batch_size = 32;
 
         GradNode loss, testLoss;
 
@@ -48,7 +49,7 @@ public class mnistPlayground {
             loss.zeroGrad();
 
             // Let's use learning rate decay
-            if (i==65){
+            if (i==100){
                 learning_rate = 0.001;
             }
         }
