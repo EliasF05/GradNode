@@ -19,9 +19,9 @@ public class mnistPlayground {
         });
 
         // Let's train our model
-        int epochs = 200;
+        int epochs = 2;
         double learning_rate = 0.01;
-        int batch_size = 32;
+        int batch_size = 1;
 
         GradNode loss, testLoss;
 
@@ -48,7 +48,7 @@ public class mnistPlayground {
 
             // Let's use learning rate decay
             if (i==100){
-                learning_rate = 0.001;
+                learning_rate = 0.005;
             }
         }
     }

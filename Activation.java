@@ -71,12 +71,12 @@ class CustomReLU implements Activation{
 }
 
 /**
- * sigmoid function: f(x) = 1/(1-e^(-x)). To prevent numerical overflow or underflow issues,
+ * sigmoid function: f(x) = 1/(1+e^(-x)). To prevent numerical overflow or underflow issues,
  * we clip the inputs using a rectified linear unit between -100, and 100
  */
 class Sigmoid implements Activation{
 
-    private static CustomReLU sigReLU = new CustomReLU(-10, 10);
+    private static CustomReLU sigReLU = new CustomReLU(-100, 100);
 
     public GradVec forward(GradVec in){
         GradVec clipped = sigReLU.forward(in);

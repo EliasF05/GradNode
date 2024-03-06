@@ -46,6 +46,62 @@ public class GradVec{
     }
 
     /**
+     * 
+     * @return maximum element of GradVec
+     */
+    public GradNode max(){
+        GradNode res = new GradNode(Integer.MIN_VALUE);
+        for (GradNode value: values){
+            res = GradNode.max(value, res);
+        }
+        return res;
+    }
+
+    /**
+     * 
+     * @return minimum element of GradVec
+     */
+    public GradNode min(){
+        GradNode res = new GradNode(Integer.MAX_VALUE);
+        for (GradNode value: values){
+            res = GradNode.min(value, res);
+        }
+        return res;
+    }
+
+    /**
+     * 
+     * @return index of maximum element of GradVec
+     */
+    public int argmax(){
+        GradNode max = new GradNode(Integer.MIN_VALUE);
+        int idx = -1;
+        for (int i = 0; i<values.length; i++){
+            if (values[i].data()>max.data()){
+                max = values[i];
+                idx = i;
+            }
+        }
+        return idx;
+    }
+
+    /**
+     * 
+     * @return index of maximum element of GradVec
+     */
+    public int argmin(){
+        GradNode min = new GradNode(Integer.MAX_VALUE);
+        int idx = -1;
+        for (int i = 0; i<values.length; i++){
+            if (values[i].data()<min.data()){
+                min = values[i];
+                idx = i;
+            }
+        }
+        return idx;
+    }
+
+    /**
      * dot product of all GradNode object's data attributes in GradVec
      * @param other serving as other factor in dot product
      * @return dot product of all GradNode object's data attributes in GradVec, and GradVec other

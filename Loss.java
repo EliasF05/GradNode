@@ -17,7 +17,9 @@ public class Loss {
      * @return squared error: sum((predicted-actual)**2)
      */
     public static GradNode SE(GradVec yPred, GradVec yLabels){
-        return (yPred.sub(yLabels).pow(new GradNode(2))).sum();
+        System.out.println("Pred: "+yPred);
+        System.out.println("Label: "+yLabels);
+        return ((yPred.sub(yLabels)).pow(new GradNode(2))).sum();
     }
 
     /**
@@ -120,6 +122,16 @@ public class Loss {
             total = total.add(SE(yPred[i], yLabels[i]));
         }
         return total.div(new GradNode(yPred.length));
+    }
+
+    public static GradNode acc(GradVec[] yLabel, JNN model, GradVec[] in){
+        GradNode correct = new GradNode(0.0);
+        for (int i = 0; i<yLabel.length; i++){
+            if (model.forward(in[i]).argmax()==yLabel[i].argmax()){
+                correct = correct.add(new GradNode(1.0));
+            }
+        }
+        return correct.div(new GradNode(yLabel.length));
     }
 
     
