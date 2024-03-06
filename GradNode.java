@@ -188,6 +188,21 @@ public class GradNode{
     }
 
     /**
+     * main purpose: sum of GradNodes without tracking gradients of intermediate results/
+     * @param nodes GradNodes to compute the sum of
+     * @return GradNode with value as sum of input values
+     */
+    public static GradNode sum(GradNode[] nodes){
+        GradNode res = new GradNode(0.0);
+        for (GradNode node: nodes){
+            res.setData(res.getData()+node.getData());
+            res.addChild(node);
+            res.addChildGrad(1.0);
+        }
+        return res;
+    }
+
+    /**
      * 
      * @return Gradient attribute of node
      */
